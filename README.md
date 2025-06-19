@@ -10,6 +10,16 @@
 
 ---
 
+## 💡 Motivation
+
+Preparing for competitive exams can be overwhelming. CET Trials was created to:
+- Make learning interactive and fun 🎮
+- Provide instant, AI-generated quizzes for targeted practice
+- Help students track their progress and focus on weak areas
+- Offer a beautiful, stress-free user experience
+
+---
+
 ## ✨ Features
 
 - 🧠 **AI-Generated Exams**: Instantly create quizzes tailored to your subject, difficulty, and topics.
@@ -19,6 +29,7 @@
 - ⏰ **Smart Timer & Progress Bar**: Stay on track with a live timer and visual progress.
 - 📊 **Instant Results**: Get detailed results and feedback after every quiz.
 - 💎 **Beautiful, Responsive UI**: Modern design, mobile-friendly, and easy to use.
+- 🔒 **Session Security**: User data is protected and private.
 
 ---
 
@@ -28,6 +39,24 @@
 - **Frontend**: HTML5, CSS3, JavaScript, [Font Awesome](https://fontawesome.com/)
 - **Database**: SQLite (default, easy to switch)
 - **AI/Quiz Logic**: Python (mock Gemini API)
+
+---
+
+## 🌐 Live Demo
+
+> _A live demo will be available soon!_
+> For now, clone and run locally to explore all features.
+
+---
+
+## 🚦 How It Works
+
+1. **Sign Up / Log In**: Create your account to save progress.
+2. **Choose a Subject**: Select from PCM/PCB and topics.
+3. **Generate or Practice Quiz**: Use AI to generate a custom quiz or take a practice test.
+4. **Take the Exam**: Answer questions, track time, and navigate easily.
+5. **View Results**: Instantly see your score, correct/wrong answers, and return to subjects.
+6. **Track Progress**: Your profile shows stats and history.
 
 ---
 
@@ -65,6 +94,30 @@ Go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and start your learning j
 
 ---
 
+## 🤝 Contributing
+
+Contributions are welcome! To contribute:
+1. Fork this repo
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+---
+
+## ❓ FAQ
+
+**Q: Is this free to use?**  
+A: Yes! CET Trials is open-source and free for all students.
+
+**Q: Can I use this for other exams?**  
+A: The platform is designed for MHTCET but can be adapted for other exams with minor changes.
+
+**Q: How is the AI quiz generated?**  
+A: The backend uses a mock Gemini API to generate questions based on selected topics and difficulty.
+
+---
+
 ## 👨‍💻 Team & Credits
 
 - **Shreyash Gupta**  
@@ -80,6 +133,15 @@ Go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and start your learning j
 
 We'd love to hear your thoughts, suggestions, or partnership ideas!  
 Email: [teamcettrials@gmail.com](mailto:teamcettrials@gmail.com)
+
+---
+
+## 🙏 Acknowledgements
+
+- [Django](https://www.djangoproject.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [OpenAI](https://openai.com/) (for inspiration)
+- All contributors and users!
 
 ---
 
