@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+       body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+            border: 1 px solid #ddd;
+            border-radius: 5px;
+        }
+        .container h1{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container p{
+           text-align: center;
+           margin-bottom: 20px;
+        }
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-left: 0; /* Adjusted */
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .option {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option.selected {
+            background-color: #d0ffd0;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        .correct {
+            background-color: #d0ffd0;
+        }
+        .wrong {
+            background-color: #ffd0d0;
+        }
+        .sidebar {
+            position: fixed;
+            bottom: 10px 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #21dfd9;
+            color: white;
+            border: none;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+  padding: 2px;
+  text-align: center;
+  background: #21dfd9;
+  color: white;
+}
+.header h1 {
+  font-size:30px;
+  font-weight: 300;
+  text-align: center;
+}
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+        .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        }
+.topnav a.right {
+  float: right;
+}
+        .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+        }
+       .topnav a.active {
+       background-color: #21dfd9;
+       color: white;  
+       }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>CET TRIALS</h1>
+    </div>
+    <div class="topnav">
+        <a href="{% url 'pcm' %}"><i class="fa fa-chevron-left"></i>  Leave Test</a>
+        <a href="{% url 'login' %}" class="right"><i class="fa fa-fw fa-mail-forward"></i>Log Out</a>
+        <a href="{% url 'pcmp1' %}" class="active">Physics</a>
+        <a href="{% url 'pcmc1' %}">  Chemistry  </a>
+        <a href="{% url 'pcmm1' %}">Mathematics <i class="fa fa-chevron-right"></i></a>
+      </div>
+    <div class="container">
+        <h1><u>Physics</u></h1>
+        <div id="quiz">
+            <!-- Questions and options will be dynamically added here -->
+        </div>
+    </div>
+    <button class='sidebar' onclick="nextQuestion()">Next Question</button>
+    
+    <script>
+       // List of questions and answers
+       var questions = ["1. Rutherford assumed in his atomic model that", "2. Would there be any advantage to adding n-type or p-type impurities to copper?", "3. When electron moves in a transverse electric field then what will be its nature of ", "4. In a photon electron collision",
+       "5. A glass flask of volume 1 litre is fully filled with mercury at 0°C. Both the flask and the mercury are now heated to 100°C. The coefficient of volume expansion of mercury is 1.82 × 10-4/°C and coefficient of linear expansion of glass is 10 × 10-6/°C. What is the volume of mercury which is spilled out ?", 
+       "6. The coefficient of cubical expansion of mercury is18 × 10-5°/C. A thermometer bulb has a volume of10-6 m' and cross-section of the stem is 0.002 cm'.The bulb is filled with mercury at O'C. What is the increase in the length of the mercury column at 100°C? (Neglect the expansion of the glass bulb.)", "7. A one litre flask contains some mercury. It is found that at different temperatures, the volume of air inside the flask remains the same. What is the volume of mercury in the flask? ",
+       "8. The lengths and radii of two rods made of the same material are in ratios 1: 2 and 2: 3 respectively. The temperature difference between the ends of the two rods is kept the same. What is the ratio of the amount of heat flowing per second through them ?",
+    "9. In the given circuit, the resonant frequency is",
+    "10. The period of revolution of an electron revolving in nth orbit of H-atom is proportional to"];
+        var options = [
+            ["a) Charge mass is concentrated in the centre", "b) Electrons are positively charged particles", "c) Both the mass and charge are concentrated at the centre", "d) The mass is concentrated in the centre"],
+            ["a) Yes", "b) No", "c) Maybe", "d) Information is insufficient"],
+            ["a) Parabola", "b) Ellipse", "c) Circle", "d) Straight Line"],
+            ["a) Momentum is conserved", "b) All of the above", "c) New photon may be created", "d) Energy is conserved"],
+            ["a) 11 ml", "b) 15 ml", "c) 19 ml", "d)23 ml"],
+            ["a) 9 mm", "b) 9 cm", "c) 18 cm", "d)18 mm"],
+            ["a) 150 cm3", "b) 250 cm3", "c) 300 cm3", "d) 400 cm3"],
+            ["a) 3:2", "b) 8:9", "c) 1:3", "d) 4:3"],
+            ["a) 15910 Hz","b) 15.92 Hz","c) 159.2 Hz","d) 1592 Hz"],
+            ["a) Independent of n","b) n²","c) 1/n","d) n³"]
+        ];
+        var correct_answers = ["c) Both the mass and charge are concentrated at the centre", "b) No ", "a) Parabola", "b) All of the above",
+        "b)15 ml", "b) 9 cm", "a) 150 cm3", "b) 8:9","d) 1592 Hz","d) n³"];
+        var user_answers = [];
+
+
+        // Track correct and wrong answers
+        var correct_count = 0;
+        var wrong_count = 0;
+
+        // Display the first question
+        var current_question = 0;
+        displayQuestion(current_question);
+
+        function displayQuestion(question_number) {
+            var quiz = document.getElementById("quiz");
+            quiz.innerHTML = "";
+
+            // Display the question and options
+            var question = document.createElement("div");
+            question.className = "question";
+            question.innerHTML = questions[question_number];
+            quiz.appendChild(question);
+
+            var options_div = document.createElement("div");
+            options_div.className = "options";
+            quiz.appendChild(options_div);
+
+            for (var i = 0; i < options[question_number].length; i++) {
+                var option = document.createElement("div");
+                option.className = "option";
+                option.innerHTML = options[question_number][i];
+                option.addEventListener("click", function () {
+                    var selectedOption = document.querySelector('.option.selected');
+                    if (selectedOption) {
+                        selectedOption.classList.remove('selected');
+                    }
+                    this.classList.add('selected');
+                    user_answers[current_question] = this.innerHTML;
+                });
+                options_div.appendChild(option);
+            }
+        }
+
+        function nextQuestion() {
+            // Move to the next question or display the final score
+            current_question++;
+            if (current_question < questions.length) {
+                displayQuestion(current_question);
+            } else {
+                displayResults();
+            }
+        }
+ 
+        
+        function displayResults() {
+            var correctCount = 0;
+            var wrongCount = 0;
+            for (var i = 0; i < questions.length; i++) {
+                if (user_answers[i] === correct_answers[i]) {
+                    correctCount++;
+                } else {
+                    wrongCount++;
+                }
+            }
+            // Redirect to the result page with counts as parameters
+            let baseUrl = "{% url 'result1' %}";
+window.location.href = `${baseUrl}?correct=${correctCount}&wrong=${wrongCount}`;  
+        }
+    </script>
+    </script>
+</body>
+
+</html>

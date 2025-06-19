@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CET Trials - PCM Tests</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+  <div class="header">
+    <h1><i class="fas fa-graduation-cap"></i> CET TRIALS</h1>
+  </div>
+
+  <div class="topnav">
+    <a href="{% url 'subjects' %}"><i class="fas fa-arrow-left"></i> Back to Subjects</a>
+    <a href="{% url 'login' %}" class="right"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+    <a href="{% url 'pcm' %}" class="active"><i class="fas fa-calculator"></i> PCM Tests</a>
+  </div>
+
+  <div class="subheading">
+    <h1><i class="fas fa-rocket"></i> Physics | Chemistry | Mathematics</h1>
+    <p>Choose your test and start your engineering journey</p>
+  </div>
+
+  <div class="container">
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-header">
+          <div class="test-icon">
+            <i class="fas fa-flask"></i>
+          </div>
+          <div class="test-info">
+            <h3>Test 1</h3>
+            <p>Foundation Level</p>
+          </div>
+        </div>
+        <div class="test-details">
+          <div class="detail-item">
+            <i class="fas fa-question-circle"></i>
+            <span>30 Questions</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-clock"></i>
+            <span>60 Minutes</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-star"></i>
+            <span>Easy</span>
+          </div>
+        </div>
+        <form action="{% url 'instruction1' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="test-btn">
+            <i class="fas fa-play"></i> Start Test
+          </button>
+        </form>
+      </div>
+
+      <div class="test-card">
+        <div class="test-header">
+          <div class="test-icon">
+            <i class="fas fa-atom"></i>
+          </div>
+          <div class="test-info">
+            <h3>Test 2</h3>
+            <p>Intermediate Level</p>
+          </div>
+        </div>
+        <div class="test-details">
+          <div class="detail-item">
+            <i class="fas fa-question-circle"></i>
+            <span>40 Questions</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-clock"></i>
+            <span>75 Minutes</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-star"></i>
+            <span>Medium</span>
+          </div>
+        </div>
+        <form action="{% url 'instruction1' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="test-btn">
+            <i class="fas fa-play"></i> Start Test
+          </button>
+        </form>
+      </div>
+
+      <div class="test-card">
+        <div class="test-header">
+          <div class="test-icon">
+            <i class="fas fa-calculator"></i>
+          </div>
+          <div class="test-info">
+            <h3>Test 3</h3>
+            <p>Advanced Level</p>
+          </div>
+        </div>
+        <div class="test-details">
+          <div class="detail-item">
+            <i class="fas fa-question-circle"></i>
+            <span>50 Questions</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-clock"></i>
+            <span>90 Minutes</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-star"></i>
+            <span>Hard</span>
+          </div>
+        </div>
+        <form action="{% url 'instruction1' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="test-btn">
+            <i class="fas fa-play"></i> Start Test
+          </button>
+        </form>
+      </div>
+
+      <div class="test-card">
+        <div class="test-header">
+          <div class="test-icon">
+            <i class="fas fa-rocket"></i>
+          </div>
+          <div class="test-info">
+            <h3>Test 4</h3>
+            <p>Expert Level</p>
+          </div>
+        </div>
+        <div class="test-details">
+          <div class="detail-item">
+            <i class="fas fa-question-circle"></i>
+            <span>60 Questions</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-clock"></i>
+            <span>120 Minutes</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-star"></i>
+            <span>Expert</span>
+          </div>
+        </div>
+        <form action="{% url 'instruction1' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="test-btn">
+            <i class="fas fa-play"></i> Start Test
+          </button>
+        </form>
+      </div>
+
+      <div class="test-card">
+        <div class="test-header">
+          <div class="test-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <div class="test-info">
+            <h3>Test 5</h3>
+            <p>Master Level</p>
+          </div>
+        </div>
+        <div class="test-details">
+          <div class="detail-item">
+            <i class="fas fa-question-circle"></i>
+            <span>75 Questions</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-clock"></i>
+            <span>150 Minutes</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-star"></i>
+            <span>Master</span>
+          </div>
+        </div>
+        <form action="{% url 'instruction1' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="test-btn">
+            <i class="fas fa-play"></i> Start Test
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div class="progress-section">
+      <h3><i class="fas fa-chart-line"></i> Your Progress</h3>
+      <div class="progress-cards">
+        <div class="progress-card">
+          <div class="progress-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="progress-info">
+            <span class="progress-number">0</span>
+            <span class="progress-label">Tests Completed</span>
+          </div>
+        </div>
+        <div class="progress-card">
+          <div class="progress-icon">
+            <i class="fas fa-percentage"></i>
+          </div>
+          <div class="progress-info">
+            <span class="progress-number">0%</span>
+            <span class="progress-label">Average Score</span>
+          </div>
+        </div>
+        <div class="progress-card">
+          <div class="progress-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="progress-info">
+            <span class="progress-number">0h</span>
+            <span class="progress-label">Time Spent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add hover effects for test cards
+    document.querySelectorAll('.test-card').forEach(card => {
+      card.addEventListener('mouseenter', function () {
+        this.style.transform = 'translateY(-5px) scale(1.02)';
+      });
+
+      card.addEventListener('mouseleave', function () {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Add loading animation for form submission
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', function () {
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+        submitBtn.disabled = true;
+      });
+    });
+  </script>
+</body>
+
+</html>

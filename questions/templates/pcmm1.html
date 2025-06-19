@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Mathematics</title>
+    <style>
+          body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+            border: 1 px solid #ddd;
+            border-radius: 5px;
+        }
+        .container h1{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container p{
+           text-align: center;
+           margin-bottom: 20px;
+        }
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-left: 0; /* Adjusted */
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .option {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option.selected {
+            background-color: #d0ffd0;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        .correct {
+            background-color: #d0ffd0;
+        }
+        .wrong {
+            background-color: #ffd0d0;
+        }
+        .sidebar {
+            position: fixed;
+            bottom: 10px 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #21dfd9;
+            color: white;
+            border: none;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+  padding: 2px;
+  text-align: center;
+  background: #21dfd9;
+  color: white;
+}
+.header h1 {
+  font-size:30px;
+  font-weight: 300;
+  text-align: center;
+}
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+        .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        }
+.topnav a.right {
+  float: right;
+}
+        .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+        }
+       .topnav a.active {
+       background-color: #21dfd9;
+       color: white;  
+       }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>CET TRIALS</h1>
+    </div>
+    <div class="topnav">
+        <a href="{% url 'pcm' %}"><i class="fa fa-chevron-left"></i>  Leave Test</a>
+        <a href="{% url 'login' %}" class="right"><i class="fa fa-fw fa-mail-forward"></i>Log Out</a>
+        <a href="{% url 'pcmp1' %}">  Physics </a>
+        <a href="{% url 'pcmc1' %}">Chemistry</a>
+        <a href="{% url 'pcmm1' %}" class="active">Mathematics</a>
+      </div>
+    <div class="container">
+        <h1><u>Mathematics</u></h1>
+        <div id="quiz">
+            <!-- Questions and options will be dynamically added here -->
+        </div>
+    </div>
+        <button class="sidebar" onclick="nextQuestion()">Next Question</button>
+
+    <script>
+       // List of questions and answers
+       var questions = ["1. If the curves are 2x = y2 and 2xy = K intersect perpendicularly, then the value of K2 is","2. If the side of a cube is increased by 5%, then the surface area of a cube is increased by",
+    "3. The area of the region bounded by the curve y² = 8x and the line y = 2x is","4. The order of the differential equation obtained by eliminating arbitrary constants in the family of curves c1y = (c2+c3)e^x+c4 is",
+"5. The area of the region bounded by the line y = 2x+1, x- axis and the ordinates x = -1 and x = 1 is","6. The curve passing through the point (1, 2) given that the slope of the tangent at any point (x,y) is 2x/y represents",
+"7. The point(1,-3,4) lies in the octant","8. The distance of the point (1,2,-4) from the line (x-3)/2 = (y-3)/3 = (z+5)/6 is",
+"9. If a line makes an angle of π/3 with each of x and y-axis, then the acute angle made by z-axis is",
+"10. Corner points of the feasible region determined by the system of linear constraints are (0,3),(1,1) and (3,0). Let z = px+qy, where p,q>0. Condition on p and q so that the minimum of z occurs at (3,0) and (1,1) is"];
+        var options = [
+            ["a) 8","b) 4","c) 2√2","d) 2"], //square root by alt+251 //superscript alt+0178
+            ["a) 20%", "b) 10%", "c) 60%", "d) 6%"],
+            ["a) (8/3) sq. units", "b) (16/3) sq. units", "c) (4/3) sq. units", "d) (3/4) sq. units"],
+            ["a) 4", "b) 1", "c) 2", "d) 3"],
+            ["a) 5", "b) 9/4", "c) 2", "d) 5/2"],
+            ["a) Hyperbola", "b) Circle", "c) Parabola", "d) Ellipse"],
+            ["a) Eighth", "b) Second", "c) Third", "d) Fourth"],
+            ["a) √293/49", "b) 293/7", "c) √293/7", "d) 293/49"],
+            ["a) π/2","b) π/4","c) π/6","d) π/3"], //π alt+227
+            ["a) p=q","b) p=2q","c) p=q/2","d) p=3q"]
+        ];
+        var correct_answers = ["a) 8","b) 10%","c) (4/3) sq. units","b) 1","d) 5/2","a) Hyperbola","d) Fourth","c) √293/7","b) π/4","c) p=q/2"];
+        var user_answers = [];
+
+
+        // Track correct and wrong answers
+        var correct_count = 0;
+        var wrong_count = 0;
+
+        // Display the first question
+        var current_question = 0;
+        displayQuestion(current_question);
+
+        function displayQuestion(question_number) {
+            var quiz = document.getElementById("quiz");
+            quiz.innerHTML = "";
+
+            // Display the question and options
+            var question = document.createElement("div");
+            question.className = "question";
+            question.innerHTML = questions[question_number];
+            quiz.appendChild(question);
+
+            var options_div = document.createElement("div");
+            options_div.className = "options";
+            quiz.appendChild(options_div);
+
+            for (var i = 0; i < options[question_number].length; i++) {
+                var option = document.createElement("div");
+                option.className = "option";
+                option.innerHTML = options[question_number][i];
+                option.addEventListener("click", function () {
+                    var selectedOption = document.querySelector('.option.selected');
+                    if (selectedOption) {
+                        selectedOption.classList.remove('selected');
+                    }
+                    this.classList.add('selected');
+                    user_answers[current_question] = this.innerHTML;
+                });
+                options_div.appendChild(option);
+            }
+        }
+
+        function nextQuestion() {
+            // Move to the next question or display the final score
+            current_question++;
+            if (current_question < questions.length) {
+                displayQuestion(current_question);
+            } else {
+                displayResults();
+            }
+        }
+
+        function displayResults() {
+            var correctCount = 0;
+            var wrongCount = 0;
+            for (var i = 0; i < questions.length; i++) {
+                if (user_answers[i] === correct_answers[i]) {
+                    correctCount++;
+                } else {
+                    wrongCount++;
+                }
+            }
+            // Redirect to the result page with counts as parameters
+            let baseUrl = "{% url 'result2' %}";
+window.location.href = `${baseUrl}?correct=${correctCount}&wrong=${wrongCount}`;  
+        }
+    </script>
+    </script>
+</body>
+
+</html>

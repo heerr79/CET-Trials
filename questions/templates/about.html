@@ -1,0 +1,288 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CET Trials - About</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .about-hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 3rem 2rem 2rem 2rem;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15);
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .about-hero p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+      margin-bottom: 0.5rem;
+    }
+
+    .about-hero .hero-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      color: #fff;
+      opacity: 0.8;
+      animation: fadeInUp 1.2s;
+    }
+
+    .team-section {
+      max-width: 1100px;
+      margin: 2rem auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .team-card {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.10);
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      text-align: center;
+      width: 300px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 16px 40px rgba(102, 126, 234, 0.18);
+    }
+
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem auto;
+      color: white;
+      font-size: 2.5rem;
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.10);
+    }
+
+    .team-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .team-card .title {
+      color: #764ba2;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .team-card .college {
+      color: #333;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-card .social {
+      margin: 1rem 0 0 0;
+    }
+
+    .team-card .social a {
+      color: #667eea;
+      font-size: 1.3rem;
+      margin: 0 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .team-card .social a:hover {
+      color: #ff6b6b;
+    }
+
+    .mission-section {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      color: white;
+      padding: 2.5rem 2rem;
+      border-radius: 20px;
+      text-align: center;
+      margin: 2rem auto;
+      max-width: 900px;
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+    }
+
+    .mission-section h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .mission-section p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    .contact-section {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.10);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+
+    .contact-section h4 {
+      color: #764ba2;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-section p {
+      color: #333;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-section .contact-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .contact-section .contact-btn:hover {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 900px) {
+      .about-hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .about-hero p {
+        font-size: 1rem;
+      }
+
+      .team-section {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .team-card {
+        width: 90%;
+      }
+    }
+
+    .about-hero,
+    .team-section,
+    .team-card,
+    .mission-section,
+    .contact-section {
+      text-align: center;
+    }
+
+    .about-hero,
+    .mission-section,
+    .contact-section {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 900px;
+    }
+
+    .team-section {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1><i class="fas fa-user"></i> About CET Trials</h1>
+  </div>
+  <div class="topnav">
+    <a href="{% url 'profile' %}"><i class="fas fa-home"></i> Home</a>
+    <a href="{% url 'subjects' %}"><i class="fas fa-th"></i> Subjects</a>
+    <a href="{% url 'syllabus' %}"><i class="fas fa-book"></i> Syllabus</a>
+    <a href="{% url 'about' %}" class="active"><i class="fas fa-user"></i> About</a>
+    <a href="{% url 'login' %}" class="right"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+  </div>
+  <div class="about-hero">
+    <div class="hero-icon"><i class="fas fa-rocket"></i></div>
+    <h1>Meet the Team</h1>
+    <p>We are passionate students on a mission to make MHTCET preparation smarter, easier, and more accessible for
+      everyone.</p>
+  </div>
+  <div class="team-section">
+    <div class="team-card">
+      <div class="team-avatar"><i class="fas fa-user-graduate"></i></div>
+      <h2>Shreyash Gupta</h2>
+      <div class="title">Student</div>
+      <div class="college">SY - Artificial Intelligence & Data Science<br>KJSIT, Sion</div>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/shreyash-gupta-b3a21025b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+          target="_blank"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar"><i class="fas fa-user-graduate"></i></div>
+      <h2>Heer Panchal</h2>
+      <div class="title">Student</div>
+      <div class="college">SY - Artificial Intelligence & Data Science<br>KJSIT, Sion</div>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/heer-rajesh-panchal-36307b2b6?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+          target="_blank"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar"><i class="fas fa-user-graduate"></i></div>
+      <h2>Kinjal Panchal</h2>
+      <div class="title">Student</div>
+      <div class="college">SY - Artificial Intelligence & Data Science<br>KJSIT, Sion</div>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/kinjal-panchal-b83a822b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+          target="_blank"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="mission-section">
+    <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+    <p>To empower students with AI-driven tools and resources for effective MHTCET preparation. We believe in making
+      learning engaging, accessible, and tailored to every learner's needs.</p>
+    <h3 style="margin-top:2rem;"><i class="fas fa-eye"></i> Our Vision</h3>
+    <p>To be the most trusted and innovative platform for competitive exam preparation, helping students achieve their
+      dreams with confidence and clarity.</p>
+  </div>
+  <div class="contact-section">
+    <h4><i class="fas fa-envelope"></i> Contact & Feedback</h4>
+    <p>We'd love to hear your thoughts, suggestions, or partnership ideas! Reach out to us and help us make CET Trials
+      even better.</p>
+    <a href="mailto:teamcettrials@gmail.com" class="contact-btn"><i class="fas fa-paper-plane"></i> Email Us</a>
+  </div>
+</body>
+
+</html>

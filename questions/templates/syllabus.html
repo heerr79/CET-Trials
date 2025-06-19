@@ -1,0 +1,576 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CET Trials - Syllabus</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .syllabus-hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 3rem 2rem 2rem 2rem;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15);
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 900px;
+    }
+
+    .syllabus-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .syllabus-hero p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+      margin-bottom: 0.5rem;
+    }
+
+    .syllabus-hero .hero-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      color: #fff;
+      opacity: 0.8;
+      animation: fadeInUp 1.2s;
+    }
+
+    .syllabus-hero::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 30px;
+      background: linear-gradient(0deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+      z-index: 1;
+    }
+
+    .syllabus-motivation {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: center;
+      margin: 2rem 0;
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 900px) {
+      .syllabus-hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .syllabus-hero p {
+        font-size: 1rem;
+      }
+    }
+
+    .syllabus-container {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1200px;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .syllabus-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .syllabus-header h1 {
+      color: #333;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .syllabus-header p {
+      color: #666;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .syllabus-table {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .syllabus-table table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+    }
+
+    .syllabus-table th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border: none;
+    }
+
+    .syllabus-table td {
+      padding: 1.5rem;
+      border: 1px solid rgba(102, 126, 234, 0.1);
+      vertical-align: top;
+      background: white;
+    }
+
+    .syllabus-table tr:nth-child(even) td {
+      background: rgba(248, 249, 250, 0.5);
+    }
+
+    .subject-title {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .topic-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .topic-list li {
+      background: rgba(102, 126, 234, 0.1);
+      margin: 0.5rem 0;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      font-size: 0.9rem;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    .topic-list li:hover {
+      background: rgba(102, 126, 234, 0.2);
+      transform: translateX(5px);
+    }
+
+    .reference-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .reference-list li {
+      background: rgba(40, 167, 69, 0.1);
+      margin: 0.5rem 0;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #28a745;
+      font-size: 0.9rem;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    .reference-list li:hover {
+      background: rgba(40, 167, 69, 0.2);
+      transform: translateX(5px);
+    }
+
+    .syllabus-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+    }
+
+    .stat-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      color: white;
+      font-size: 2rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: #666;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .syllabus-note {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: center;
+      margin: 2rem 0;
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+    }
+
+    .syllabus-note h3 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .syllabus-note p {
+      margin: 0;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .syllabus-container {
+        padding: 0 1rem;
+      }
+
+      .syllabus-table {
+        overflow-x: auto;
+      }
+
+      .syllabus-table table {
+        min-width: 800px;
+      }
+
+      .syllabus-header h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .syllabus-header,
+    .syllabus-table th,
+    .syllabus-table td {
+      text-align: center;
+    }
+
+    .syllabus-motivation {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1><i class="fas fa-book"></i> MHTCET Syllabus</h1>
+  </div>
+
+  <div class="topnav">
+    <a href="{% url 'profile' %}"><i class="fas fa-home"></i> Home</a>
+    <a href="{% url 'subjects' %}"><i class="fas fa-th"></i> Subjects</a>
+    <a href="{% url 'syllabus' %}" class="active"><i class="fas fa-book"></i> Syllabus</a>
+    <a href="{% url 'about' %}"><i class="fas fa-user"></i> About</a>
+    <a href="{% url 'login' %}" class="right"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+  </div>
+
+  <div class="syllabus-hero">
+    <div class="hero-icon"><i class="fas fa-graduation-cap"></i></div>
+    <h1>MHTCET Complete Syllabus</h1>
+    <p>Comprehensive guide covering <b>Physics</b>, <b>Chemistry</b>, <b>Mathematics</b>, and <b>Biology</b> for Class
+      11 & 12</p>
+    <p style="font-size:1.1rem;opacity:0.8;">Plan your preparation with the latest topics and best reference books!</p>
+  </div>
+
+  <div class="syllabus-container">
+    <div class="syllabus-stats">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-atom"></i></div>
+        <div class="stat-number">4</div>
+        <div class="stat-label">Subjects</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+        <div class="stat-number">2</div>
+        <div class="stat-label">Class Levels</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-tags"></i></div>
+        <div class="stat-number">80+</div>
+        <div class="stat-label">Topics</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-book-open"></i></div>
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Reference Books</div>
+      </div>
+    </div>
+
+    <div class="syllabus-table">
+      <table>
+        <thead>
+          <tr>
+            <th><i class="fas fa-subject"></i> Subjects</th>
+            <th><i class="fas fa-school"></i> Class 11 Syllabus</th>
+            <th><i class="fas fa-university"></i> Class 12 Syllabus</th>
+            <th><i class="fas fa-book"></i> Reference Books</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="subject-title">
+                <i class="fas fa-atom"></i> Physics
+              </div>
+            </td>
+            <td>
+              <ul class="topic-list">
+                <li><i class="fas fa-arrow-right"></i> Motion in a plane</li>
+                <li><i class="fas fa-arrow-right"></i> Laws of motion</li>
+                <li><i class="fas fa-arrow-right"></i> Thermal properties of matter</li>
+                <li><i class="fas fa-arrow-right"></i> Sound</li>
+                <li><i class="fas fa-arrow-right"></i> Optics</li>
+                <li><i class="fas fa-arrow-right"></i> Electrostatics</li>
+                <li><i class="fas fa-arrow-right"></i> Semiconductor</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="topic-list">
+                <li><i class="fas fa-arrow-right"></i> Circular motion</li>
+                <li><i class="fas fa-arrow-right"></i> Rotational motion</li>
+                <li><i class="fas fa-arrow-right"></i> Oscillations</li>
+                <li><i class="fas fa-arrow-right"></i> Gravitation</li>
+                <li><i class="fas fa-arrow-right"></i> Elasticity</li>
+                <li><i class="fas fa-arrow-right"></i> Electrostatics</li>
+                <li><i class="fas fa-arrow-right"></i> Wave Motion</li>
+                <li><i class="fas fa-arrow-right"></i> Magnetism</li>
+                <li><i class="fas fa-arrow-right"></i> Surface Tension</li>
+                <li><i class="fas fa-arrow-right"></i> Wave Theory of Light</li>
+                <li><i class="fas fa-arrow-right"></i> Stationary Waves</li>
+                <li><i class="fas fa-arrow-right"></i> Kinetic Theory of Gases and Radiation</li>
+                <li><i class="fas fa-arrow-right"></i> Interference and Diffraction</li>
+                <li><i class="fas fa-arrow-right"></i> Current Electricity</li>
+                <li><i class="fas fa-arrow-right"></i> Magnetic Effects of Electric Current</li>
+                <li><i class="fas fa-arrow-right"></i> Electromagnetic Inductions</li>
+                <li><i class="fas fa-arrow-right"></i> Electrons and Photons</li>
+                <li><i class="fas fa-arrow-right"></i> Atoms, Molecules and Nuclei</li>
+                <li><i class="fas fa-arrow-right"></i> Semiconductors</li>
+                <li><i class="fas fa-arrow-right"></i> Communication Systems</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="reference-list">
+                <li><i class="fas fa-book"></i> NCERT Textbook for classes 11 and 12</li>
+                <li><i class="fas fa-book"></i> Concepts of Physics by H.C. Verma - Volumes 1 and 2</li>
+                <li><i class="fas fa-book"></i> MHT CET Physics by AJ Bapat (Marvel Publication)</li>
+                <li><i class="fas fa-book"></i> Complete Reference Manual MH-CET Physics M.K. Dikshit (Arihant
+                  Publication)</li>
+                <li><i class="fas fa-book"></i> MCQ Physics for MHT CET by A J Bapat (Marvel Publication)</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="subject-title">
+                <i class="fas fa-flask"></i> Chemistry
+              </div>
+            </td>
+            <td>
+              <ul class="topic-list">
+                <li><i class="fas fa-arrow-right"></i> Some basic concepts of Chemistry</li>
+                <li><i class="fas fa-arrow-right"></i> Structure of atoms</li>
+                <li><i class="fas fa-arrow-right"></i> Chemical bonding</li>
+                <li><i class="fas fa-arrow-right"></i> Redox reactions</li>
+                <li><i class="fas fa-arrow-right"></i> Elements of groups 1 and 2</li>
+                <li><i class="fas fa-arrow-right"></i> States of matter (Gaseous and Liquids)</li>
+                <li><i class="fas fa-arrow-right"></i> Adsorption and colloids (Surface Chemistry)</li>
+                <li><i class="fas fa-arrow-right"></i> Hydrocarbons</li>
+                <li><i class="fas fa-arrow-right"></i> Basic principles of organic chemistry</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="topic-list">
+                <li><i class="fas fa-arrow-right"></i> Solid State</li>
+                <li><i class="fas fa-arrow-right"></i> Chemical Thermodynamics and Energetic</li>
+                <li><i class="fas fa-arrow-right"></i> Electrochemistry</li>
+                <li><i class="fas fa-arrow-right"></i> General Principles and Processes of Isolation</li>
+                <li><i class="fas fa-arrow-right"></i> Solutions and Colligative Properties</li>
+                <li><i class="fas fa-arrow-right"></i> p-Block elements</li>
+                <li><i class="fas fa-arrow-right"></i> Group 15 elements</li>
+                <li><i class="fas fa-arrow-right"></i> d and f Block Elements</li>
+                <li><i class="fas fa-arrow-right"></i> Chemical Kinetics</li>
+                <li><i class="fas fa-arrow-right"></i> Coordination Compounds</li>
+                <li><i class="fas fa-arrow-right"></i> Halogen Derivatives of Alkanes (and arenes)</li>
+                <li><i class="fas fa-arrow-right"></i> Aldehydes, Ketones and Carboxylic Acids</li>
+                <li><i class="fas fa-arrow-right"></i> Organic Compounds Containing Nitrogen</li>
+                <li><i class="fas fa-arrow-right"></i> Alcohols, Phenols and Ether Alcohol</li>
+                <li><i class="fas fa-arrow-right"></i> Polymers</li>
+                <li><i class="fas fa-arrow-right"></i> Chemistry in Everyday Life</li>
+                <li><i class="fas fa-arrow-right"></i> Biomolecules Carbohydrates</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="reference-list">
+                <li><i class="fas fa-book"></i> NCERT Class 11 and 12 Text Book</li>
+                <li><i class="fas fa-book"></i> MHT CET Triump Chemistry (Target Publication)</li>
+                <li><i class="fas fa-book"></i> Complete Reference Manual MH-CET Chemistry (Arihant Publication)</li>
+                <li><i class="fas fa-book"></i> MHT CET Chemistry by Arihant Publishers</li>
+                <li><i class="fas fa-book"></i> Marvel Chemistry for MHT CET by Mayur Mehta, Chitra Joshi, Rekha Diwekar
+                </li>
+                <li><i class="fas fa-book"></i> Chemistry for MHT CET (MCQ) by Mayur Mehta and Chitra Joshi (Marvel
+                  Publication)</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="subject-title">
+                <i class="fas fa-calculator"></i> Mathematics
+              </div>
+            </td>
+            <td>
+              <ul class="topic-list">
+                <li><i class="fas fa-arrow-right"></i> Trigonometry II</li>
+                <li><i class="fas fa-arrow-right"></i> Straight lines</li>
+                <li><i class="fas fa-arrow-right"></i> Circles</li>
+                <li><i class="fas fa-arrow-right"></i> Measures of dispersion</li>
+                <li><i class="fas fa-arrow-right"></i> Probability</li>
+                <li><i class="fas fa-arrow-right"></i> Complex numbers</li>
+                <li><i class="fas fa-arrow-right"></i> Permutations and combinations</li>
+                <li><i class="fas fa-arrow-right"></i> Functions</li>
+                <li><i class="fas fa-arrow-right"></i> Limits</li>
+                <li><i class="fas fa-arrow-right"></i> Continuity</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="topic-list">
+                <li><i class="fas fa-arrow-right"></i> Mathematical Logic Statements</li>
+                <li><i class="fas fa-arrow-right"></i> Matrices</li>
+                <li><i class="fas fa-arrow-right"></i> Pair of Straight Lines</li>
+                <li><i class="fas fa-arrow-right"></i> Circle</li>
+                <li><i class="fas fa-arrow-right"></i> Line</li>
+                <li><i class="fas fa-arrow-right"></i> Conics</li>
+                <li><i class="fas fa-arrow-right"></i> Trigonometric Functions</li>
+                <li><i class="fas fa-arrow-right"></i> Vectors</li>
+                <li><i class="fas fa-arrow-right"></i> Three Dimensional Geometry</li>
+                <li><i class="fas fa-arrow-right"></i> Plane</li>
+                <li><i class="fas fa-arrow-right"></i> Linear Programming Problems</li>
+                <li><i class="fas fa-arrow-right"></i> Continuity</li>
+                <li><i class="fas fa-arrow-right"></i> Applications of Derivatives</li>
+                <li><i class="fas fa-arrow-right"></i> Integration</li>
+                <li><i class="fas fa-arrow-right"></i> Differentiation</li>
+                <li><i class="fas fa-arrow-right"></i> Applications of Definite Integral</li>
+                <li><i class="fas fa-arrow-right"></i> Differential Equation</li>
+                <li><i class="fas fa-arrow-right"></i> Probability Distribution</li>
+                <li><i class="fas fa-arrow-right"></i> Statistics</li>
+                <li><i class="fas fa-arrow-right"></i> Bernoulli Trials and Binomial Distribution</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="reference-list">
+                <li><i class="fas fa-book"></i> NCERT Text Books for Class 11 and 12</li>
+                <li><i class="fas fa-book"></i> MCQ Mathematics for MHT CET by Hemant G. Ainapure (Marvel Publication)
+                </li>
+                <li><i class="fas fa-book"></i> Complete Reference Manual MH-CET Mathematics by Sushil Verma (Arihant
+                  Publication)</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="subject-title">
+                <i class="fas fa-dna"></i> Biology
+              </div>
+            </td>
+            <td>
+              <ul class="topic-list">
+                <li><i class="fas fa-arrow-right"></i> Biomolecules</li>
+                <li><i class="fas fa-arrow-right"></i> Respiration and energy transfer</li>
+                <li><i class="fas fa-arrow-right"></i> Human Nutrition</li>
+                <li><i class="fas fa-arrow-right"></i> Excretion and osmoregulation</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="topic-list">
+                <li><i class="fas fa-arrow-right"></i> Origin and the Evolution of Life</li>
+                <li><i class="fas fa-arrow-right"></i> Chromosomal Basis of Inheritance</li>
+                <li><i class="fas fa-arrow-right"></i> Genetic Engineering and Genomics</li>
+                <li><i class="fas fa-arrow-right"></i> Human Health and Diseases</li>
+                <li><i class="fas fa-arrow-right"></i> Animal Husbandry</li>
+                <li><i class="fas fa-arrow-right"></i> Circulation</li>
+                <li><i class="fas fa-arrow-right"></i> Excretion and osmoregulation</li>
+                <li><i class="fas fa-arrow-right"></i> Control and Co-ordination</li>
+                <li><i class="fas fa-arrow-right"></i> Human Reproduction</li>
+                <li><i class="fas fa-arrow-right"></i> Organisms and Environment-II</li>
+                <li><i class="fas fa-arrow-right"></i> Genetic Basis of Inheritance</li>
+                <li><i class="fas fa-arrow-right"></i> Gene its nature, expression, and regulation</li>
+                <li><i class="fas fa-arrow-right"></i> Biotechnology Process and Application</li>
+                <li><i class="fas fa-arrow-right"></i> Enhancement in Food Production</li>
+                <li><i class="fas fa-arrow-right"></i> Microbes in Human Welfare</li>
+                <li><i class="fas fa-arrow-right"></i> Photosynthesis</li>
+                <li><i class="fas fa-arrow-right"></i> Respiration</li>
+                <li><i class="fas fa-arrow-right"></i> Reproduction in Plants</li>
+                <li><i class="fas fa-arrow-right"></i> Organisms and Environment</li>
+              </ul>
+            </td>
+            <td>
+              <ul class="reference-list">
+                <li><i class="fas fa-book"></i> "Biology" by Campbell and Reece</li>
+                <li><i class="fas fa-book"></i> Objective Biology for MHT-CET" by S. Chand</li>
+                <li><i class="fas fa-book"></i> MHT-CET Biology Simplified" by Disha Experts</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="syllabus-motivation">
+      <h3><i class="fas fa-lightbulb"></i> Tip:</h3>
+      <p>Success in MHTCET is not about studying harder, but studying smarter. Focus on understanding concepts,
+        practicing regularly, and using the best resources. You've got this!</p>
+    </div>
+  </div>
+</body>
+
+</html>

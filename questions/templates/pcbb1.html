@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+       body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+            border: 1 px solid #ddd;
+            border-radius: 5px;
+        }
+        .container h1{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container p{
+           text-align: center;
+           margin-bottom: 20px;
+        }
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-left: 0; /* Adjusted */
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .option {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option.selected {
+            background-color: #d0ffd0;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        .correct {
+            background-color: #d0ffd0;
+        }
+        .wrong {
+            background-color: #ffd0d0;
+        }
+        .sidebar {
+            position: fixed;
+            bottom: 10px 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #21dfd9;
+            color: white;
+            border: none;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+  padding: 2px;
+  text-align: center;
+  background: #21dfd9;
+  color: white;
+}
+.header h1 {
+  font-size:30px;
+  font-weight: 300;
+  text-align: center;
+}
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+        .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        }
+.topnav a.right {
+  float: right;
+}
+        .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+        }
+       .topnav a.active {
+       background-color: #21dfd9;
+       color: white;  
+       }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>CET TRIALS</h1>
+    </div>
+    <div class="topnav">
+        <a href="{% url 'pcb' %}"><i class="fa fa-chevron-left"></i>  Leave Test</a>
+        <a href="{% url 'login' %}" class="right"><i class="fa fa-fw fa-mail-forward"></i>Log Out</a>
+        <a href="{% url 'pcbp1' %}">Physics</a>
+        <a href="{% url 'pcbc1' %}">  Chemistry  </a>
+        <a href="{% url 'pcbb1' %}" class="active">Biology <i class="fa fa-chevron-right"></i></a>
+      </div>
+    <div class="container">
+        <h1><u>Biology</u></h1>
+        <div id="quiz">
+            <!-- Questions and options will be dynamically added here -->
+        </div>
+    </div>
+    <button class='sidebar' onclick="nextQuestion()">Next Question</button>
+    
+    <script>
+       // List of questions and answers
+       var questions = ["1. The most important feature of all living systemsis to","2. Fungi are filamentous with the exception of 'X' which is unicellular Identify X","3. When a moist bread is kept exposed in air, it becomes mouldy and black because","4. Which of the following pteridophytes belong to class pteropsida?",
+       "5. Which of the following is not a chordate character?","6. Extra chromosome 'X' is present in which one of the following cases?",
+       "7. Segments of mRNA removed during splicing are called","8. Homologous organs show","9. The cytotoxic cells are produced by",
+       "10. The use of bioresources bymultinational companies and other organizations without proper authorisation from the countries and people concerned without compensatory payment is called"];
+var options = [
+ ["a) utilize oxygen to generate energy", "b) replicate the genetic information", "c) produce gametes", "d) utilize solar energy for metabolic activities"],
+            ["a) Yeast", "b) Albugo", "c) Mucor", "d) Lichen"],
+            ["a) spores are present in the water", "b) spores are present in the bread", "c) spores are present in the air", "d) the bread decomposes"],
+            ["a) Equisetum and Psilotum", "b) Lycopodium and Adiantum", "c) Selaginella and Pteris", "d) Pteris and Adiantum"],
+            ["a) Presence of paired pharyngeal gill slits", "b) Ventral heart", "c) Solid and ventral nerve cord", "d) Presence of post-anal tail"],
+            ["a) Down's syndrome", "b) Klinefelter syndrome", "c) Turner syndrome", "d) Bleeder's syndrome"],
+            ["a) introns", "b) exons", "c) promoter regions", "d) integrator regions"],
+            ["a) divergent evolution", "b) convergent evolution", "c) parallel evolution", "d) both b) and c)"],
+            ["a) T-cells","b) B-cells","c) Memory cells","d) Mast cells"],
+            ["a) Bioethics","b) Biopiracy","c) Bioterror","d) Bioweapon"]
+    ];
+ var correct_answers = ["b) replicate the genetic information","a) Yeast"," c) spores are present in the air","d) Pteris and Adiantum","c) Solid and ventral nerve cord","b) Klinefelter syndrome","a) Introns","a) divergent evolution","a) T-cells","b) Biopiracy"];
+       var user_answers = [];
+
+        // Track correct and wrong answers
+        var correct_count = 0;
+        var wrong_count = 0;
+
+        // Display the first question
+        var current_question = 0;
+        displayQuestion(current_question);
+
+        function displayQuestion(question_number) {
+            var quiz = document.getElementById("quiz");
+            quiz.innerHTML = "";
+
+            // Display the question and options
+            var question = document.createElement("div");
+            question.className = "question";
+            question.innerHTML = questions[question_number];
+            quiz.appendChild(question);
+
+            var options_div = document.createElement("div");
+            options_div.className = "options";
+            quiz.appendChild(options_div);
+
+            for (var i = 0; i < options[question_number].length; i++) {
+                var option = document.createElement("div");
+                option.className = "option";
+                option.innerHTML = options[question_number][i];
+                option.addEventListener("click", function () {
+                    var selectedOption = document.querySelector('.option.selected');
+                    if (selectedOption) {
+                        selectedOption.classList.remove('selected');
+                    }
+                    this.classList.add('selected');
+                    user_answers[current_question] = this.innerHTML;
+                });
+                options_div.appendChild(option);
+            }
+        }
+
+        function nextQuestion() {
+            // Move to the next question or display the final score
+            current_question++;
+            if (current_question < questions.length) {
+                displayQuestion(current_question);
+            } else {
+                displayResults();
+            }
+        }
+
+        function displayResults() {
+            var correctCount = 0;
+            var wrongCount = 0;
+            for (var i = 0; i < questions.length; i++) {
+                if (user_answers[i] === correct_answers[i]) {
+                    correctCount++;
+                } else {
+                    wrongCount++;
+                }
+            }
+            // Redirect to the result page with counts as parameters
+            let baseUrl = "{% url 'resultb1' %}";
+window.location.href = `${baseUrl}?correct=${correctCount}&wrong=${wrongCount}`;  
+        }
+    </script>
+    </script>
+</body>
+
+</html>

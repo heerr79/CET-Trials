@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Session - CET Trials</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1><i class="fas fa-lightbulb"></i> Practice Session</h1>
+    </div>
+
+    <div class="topnav">
+        <a href="{% url 'subjects' %}"><i class="fas fa-arrow-left"></i> Back to Subjects</a>
+        <a href="{% url 'login' %}" class="right"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+        <a href="#" class="active"><i class="fas fa-dumbbell"></i> Practice Mode</a>
+    </div>
+
+    <div class="subheading">
+        <h1><i class="fas fa-book"></i> {{ session.subject|title }} Practice</h1>
+        <p>Topic: {{ session.topic }} | Questions: {{ session.question_count }}</p>
+    </div>
+
+    <div class="container">
+        <div class="question-container">
+            <div class="question-header">
+                <div class="question-number">Question 1</div>
+                <div class="question-subject">{{ session.subject|title }}</div>
+            </div>
+            <div class="question-text">
+                {{ questions.0.question }}
+            </div>
+            <div class="options">
+                {% for option in questions.0.options %}
+                <div class="option" onclick="selectOption({{ forloop.counter0 }})">
+                    <div class="option-letter">{{ forloop.counter0|add:1|stringformat:"c"|upper }}</div>
+                    <div class="option-text">{{ option }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="practice-actions">
+            <button class="btn-secondary" onclick="previousQuestion()">
+                <i class="fas fa-chevron-left"></i> Previous
+            </button>
+            <button class="btn-primary" onclick="nextQuestion()">
+                Next <i class="fas fa-chevron-right"></i>
+            </button>
+            <button class="submit-btn" onclick="finishPractice()">
+                <i class="fas fa-check"></i> Finish Practice
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let answers = new Array({{ session.question_count }}).fill(null);
+        const questions = {{ questions| safe }};
+
+        function selectOption(optionIndex) {
+            answers[currentQuestionIndex] = optionIndex;
+
+            // Update UI
+            document.querySelectorAll('.option').forEach((option, index) => {
+                option.classList.toggle('selected', index === optionIndex);
+            });
+        }
+
+        function loadQuestion(index) {
+            if (index < 0 || index >= questions.length) return;
+
+            currentQuestionIndex = index;
+            const question = questions[index];
+
+            document.querySelector('.question-number').textContent = `Question ${index + 1}`;
+            document.querySelector('.question-text').textContent = question.question;
+
+            const optionsContainer = document.querySelector('.options');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, optionIndex) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = `option ${answers[index] === optionIndex ? 'selected' : ''}`;
+                optionDiv.onclick = () => selectOption(optionIndex);
+                optionDiv.innerHTML = `
+                    <div class="option-letter">${String.fromCharCode(65 + optionIndex)}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                optionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                loadQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                loadQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        function finishPractice() {
+            let correct = 0;
+            let wrong = 0;
+
+            answers.forEach((answer, index) => {
+                if (answer !== null) {
+                    if (answer === questions[index].correct_answer) {
+                        correct++;
+                    } else {
+                        wrong++;
+                    }
+                }
+            });
+
+            // Redirect to results page
+            window.location.href = `{% url 'result' %}?correct=${correct}&wrong=${wrong}&total=${questions.length}&mode=practice`;
+        }
+    </script>
+</body>
+
+</html>

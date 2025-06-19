@@ -1,0 +1,300 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CET Trials - Subjects Selection</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1><i class="fas fa-graduation-cap"></i> CET TRIALS</h1>
+    </div>
+
+    <div class="topnav">
+        <a href="{% url 'profile' %}"><i class="fas fa-home"></i> Home</a>
+        <a class="active" href="{% url 'subjects' %}"><i class="fas fa-book"></i> Subjects</a>
+        <a href="{% url 'syllabus' %}"><i class="fas fa-list"></i> Syllabus</a>
+        <a href="{% url 'about' %}"><i class="fas fa-info-circle"></i> About</a>
+        <a href="{% url 'login' %}" class="right"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+    </div>
+
+    <div class="subheading">
+        <h1><i class="fas fa-rocket"></i> Choose Your Learning Path</h1>
+        <p>Select the combination that matches your career goals and start your journey</p>
+    </div>
+
+    <div class="container">
+        <div class="subjects">
+            <a href="{% url 'pcb' %}" class="subject-card">
+                <div class="subject-icon">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <h3>Physics | Chemistry | Biology</h3>
+                <p>PCB - Perfect for Medical & Life Sciences</p>
+                <div class="subject-features">
+                    <span><i class="fas fa-heartbeat"></i> Medical</span>
+                    <span><i class="fas fa-dna"></i> Biology</span>
+                    <span><i class="fas fa-flask"></i> Chemistry</span>
+                </div>
+                <div class="subject-stats">
+                    <div class="stat">
+                        <span class="stat-number">5</span>
+                        <span class="stat-text">Tests</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">150</span>
+                        <span class="stat-text">Questions</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{% url 'pcm' %}" class="subject-card">
+                <div class="subject-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>Physics | Chemistry | Mathematics</h3>
+                <p>PCM - Ideal for Engineering & Technology</p>
+                <div class="subject-features">
+                    <span><i class="fas fa-cogs"></i> Engineering</span>
+                    <span><i class="fas fa-square-root-alt"></i> Mathematics</span>
+                    <span><i class="fas fa-rocket"></i> Physics</span>
+                </div>
+                <div class="subject-stats">
+                    <div class="stat">
+                        <span class="stat-number">5</span>
+                        <span class="stat-text">Tests</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">150</span>
+                        <span class="stat-text">Questions</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- AI-Powered Exam Generation Section -->
+        <div class="ai-exam-section">
+            <div class="section-header">
+                <h2><i class="fas fa-robot"></i> AI-Powered Custom Exams</h2>
+                <p>Generate personalized exams with real-time questions using AI</p>
+            </div>
+
+            <div class="ai-exam-cards">
+                <div class="ai-exam-card">
+                    <div class="ai-card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Smart Exam Generator</h3>
+                    <p>Get questions tailored to your learning level and preferences</p>
+                    <div class="ai-features">
+                        <span><i class="fas fa-magic"></i> Adaptive Difficulty</span>
+                        <span><i class="fas fa-clock"></i> Real-time Generation</span>
+                        <span><i class="fas fa-chart-line"></i> Performance Analytics</span>
+                    </div>
+                    <button class="ai-exam-btn" onclick="openAIModal()">
+                        <i class="fas fa-play"></i> Start AI Exam
+                    </button>
+                </div>
+
+                <div class="ai-exam-card">
+                    <div class="ai-card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Practice Mode</h3>
+                    <p>Practice with unlimited questions on any topic</p>
+                    <div class="ai-features">
+                        <span><i class="fas fa-infinity"></i> Unlimited Questions</span>
+                        <span><i class="fas fa-bookmark"></i> Topic Focus</span>
+                        <span><i class="fas fa-redo"></i> Instant Feedback</span>
+                    </div>
+                    <button class="ai-exam-btn practice-btn" onclick="openPracticeModal()">
+                        <i class="fas fa-dumbbell"></i> Start Practice
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Exam Modal -->
+    <div id="aiExamModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-robot"></i> AI Exam Configuration</h2>
+                <span class="close" onclick="closeAIModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="aiExamForm" action="{% url 'generate_ai_exam' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-book"></i> Subject Combination
+                        </label>
+                        <select name="subject" required>
+                            <option value="">Select Subject</option>
+                            <option value="pcm">Physics | Chemistry | Mathematics (PCM)</option>
+                            <option value="pcb">Physics | Chemistry | Biology (PCB)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-layer-group"></i> Difficulty Level
+                        </label>
+                        <select name="difficulty" required>
+                            <option value="">Select Difficulty</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-question-circle"></i> Number of Questions
+                        </label>
+                        <select name="question_count" required>
+                            <option value="">Select Count</option>
+                            <option value="10">10 Questions</option>
+                            <option value="20">20 Questions</option>
+                            <option value="30">30 Questions</option>
+                            <option value="50">50 Questions</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-clock"></i> Time Limit (minutes)
+                        </label>
+                        <input type="number" name="time_limit" min="5" max="180" placeholder="Enter time limit"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-tags"></i> Specific Topics (optional)
+                        </label>
+                        <input type="text" name="topics" placeholder="e.g., Mechanics, Organic Chemistry, Calculus">
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="closeAIModal()">Cancel</button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-magic"></i> Generate Exam
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Practice Modal -->
+    <div id="practiceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-lightbulb"></i> Practice Mode</h2>
+                <span class="close" onclick="closePracticeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="practiceForm" action="{% url 'start_practice' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-book"></i> Subject
+                        </label>
+                        <select name="subject" required>
+                            <option value="">Select Subject</option>
+                            <option value="physics">Physics</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="mathematics">Mathematics</option>
+                            <option value="biology">Biology</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-layer-group"></i> Topic
+                        </label>
+                        <input type="text" name="topic" placeholder="e.g., Mechanics, Organic Chemistry, Calculus"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-question-circle"></i> Questions per Session
+                        </label>
+                        <select name="question_count" required>
+                            <option value="5">5 Questions</option>
+                            <option value="10">10 Questions</option>
+                            <option value="15">15 Questions</option>
+                            <option value="20">20 Questions</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="closePracticeModal()">Cancel</button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-play"></i> Start Practice
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openAIModal() {
+            document.getElementById('aiExamModal').style.display = 'block';
+        }
+
+        function closeAIModal() {
+            document.getElementById('aiExamModal').style.display = 'none';
+        }
+
+        function openPracticeModal() {
+            document.getElementById('practiceModal').style.display = 'block';
+        }
+
+        function closePracticeModal() {
+            document.getElementById('practiceModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Add hover effects for subject cards
+        document.querySelectorAll('.subject-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add loading animation for form submission
+        document.getElementById('aiExamForm').addEventListener('submit', function () {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            submitBtn.disabled = true;
+        });
+
+        document.getElementById('practiceForm').addEventListener('submit', function () {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting...';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+
+</html>
