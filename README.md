@@ -124,7 +124,7 @@ A: The backend uses a mock Gemini API to generate questions based on selected to
   [LinkedIn](https://www.linkedin.com/in/shreyash-gupta-b3a21025b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
 - **Heer Panchal**  
   [LinkedIn](https://www.linkedin.com/in/heer-rajesh-panchal-36307b2b6?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
-- **Kinjal Panchal**  
+- **Kinjal H Panchal**  
   [LinkedIn](https://www.linkedin.com/in/kinjal-panchal-b83a822b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
 
 ---
